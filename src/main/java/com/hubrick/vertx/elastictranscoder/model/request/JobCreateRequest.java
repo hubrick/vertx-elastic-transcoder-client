@@ -27,6 +27,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.Map;
 
+import static com.google.common.base.Preconditions.checkArgument;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -40,7 +41,7 @@ public class JobCreateRequest extends AbstractJob {
     public JobCreateRequest(List<JobInput> inputs, String outputKeyPrefix, List<JobOutput> outputs, String pipelineId) {
         checkNotNull(inputs, "inputs must not be null");
         checkNotNull(!inputs.isEmpty(), "inputs must not be empty");
-        checkNotNull(StringUtils.trimToNull(outputKeyPrefix), "outputKeyPrefix must not be empty");
+        checkArgument(outputKeyPrefix == null || StringUtils.trimToNull(outputKeyPrefix) != null, "outputKeyPrefix must be either 'null' or have some content");
         checkNotNull(outputs, "outputs must not be null");
         checkNotNull(!outputs.isEmpty(), "outputs must not be empty");
         checkNotNull(StringUtils.trimToNull(pipelineId), "pipelineId must not be empty");
